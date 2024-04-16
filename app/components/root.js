@@ -28,6 +28,10 @@ export default class RootComponent extends Component {
   onPartsChanged () {
     requestAnimationFrame(() => {
       const conversationStream = document.querySelector('#conversation-stream');
+      // Super weird: if 'smooth' is changed to 'auto' here, not only does the
+      // bug not occur, but it doesn't even get confused about the height. The
+      // component is correctly scrolled all the way to the bottom (the *real*
+      // bottom, not the fake-out that VerticalCollection thinks is the bottom)
       conversationStream.scrollTo({top: conversationStream.scrollHeight, behavior: 'smooth'});
     });
   }
