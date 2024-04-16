@@ -4,7 +4,7 @@ module.exports = function (environment) {
   const ENV = {
     modulePrefix: 'safari-scroll-bug',
     environment,
-    rootURL: '/',
+    rootURL: environment === 'production' ? '/safari-scroll-bug/' : '/',
     locationType: 'history',
     EmberENV: {
       EXTEND_PROTOTYPES: false,
