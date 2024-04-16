@@ -1,0 +1,57 @@
+<div
+  style="
+    padding: 8px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  "
+>
+
+<h1>Safari scroll bug demo</h1>
+
+{{#if (not this.hasClickedButton)}}
+  <div>
+    <button type="button" {{on 'click' this.onClick}}>Load conversation</button>
+  </div>
+{{else}}
+  <div id="conversation-stream" style="flex: 1; overflow: scroll" {{did-update this.onPartsChanged this.messages}}>
+    {{#if (not this.hasFinishedLoading)}}
+      <span>Loading ...</span>
+    {{else}}
+      <VerticalCollection
+        @items={{this.messages}}
+        @key="key"
+        @estimateHeight={{50}}
+        @staticHeight={{false}}
+        @bufferSize={{5}}
+        @renderFromLast={{true}}
+        @steveTrack={{true}}
+      as |message index|>
+        <div
+          style="
+            background-color: #ddf;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 12px 0;
+            max-width: 500px;
+          "
+        >
+          <span>{{index}}.</span>
+          {{!--
+          Interestingly, if we change this next block of code to
+          `<span>{{message.text}}</span>` (i.e. instead of rendering each
+          "block" in its own <span>), then the bug does not happen. It's almost
+          as if the bug only occurs when the underlying HTML is "complex" enough.
+          --}}
+          {{#each message.blocks as |block|}}
+            <span>{{block}}</span>
+          {{/each}}
+        </div>
+      </VerticalCollection>
+    {{/if}}
+  </div>
+{{/if}}
+
+</div>
