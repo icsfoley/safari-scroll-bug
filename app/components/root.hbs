@@ -16,7 +16,7 @@
     <button type="button" {{on 'click' this.onClick}}>Load conversation</button>
   </div>
 {{else}}
-  <div id="conversation-stream" style="flex: 1; overflow: scroll" {{did-update this.onPartsChanged this.messages}}>
+  <div id="conversation-stream" style="flex: 1; overflow: scroll; max-width: 600px" {{did-update this.onPartsChanged this.messages}}>
     {{#if (not this.hasFinishedLoading)}}
       <span>Loading ...</span>
     {{else}}
